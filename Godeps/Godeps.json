@@ -1,0 +1,24 @@
+{
+	"ImportPath": "github.com/fananchong/goredis",
+	"GoVersion": "go1.9",
+	"GodepVersion": "v79",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/FZambia/go-sentinel",
+			"Rev": "76bd05e8e22f9f8f5e1dd6d3a85b7951da7cce57"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/internal",
+			"Comment": "v1.4.0",
+			"Rev": "d1ed5c67e5794de818ea85e6b522fda02623a484"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/redis",
+			"Comment": "v1.4.0",
+			"Rev": "d1ed5c67e5794de818ea85e6b522fda02623a484"
+		}
+	]
+}
