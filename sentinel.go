@@ -36,7 +36,7 @@ func (this *SentinelClient) Init(masterName string, addrs []string, option *Opti
 	this.masters = &redis.Pool{
 		MaxIdle:     option.PoolMaxIdle,
 		MaxActive:   option.PoolMaxActive,
-		Wait:        true,
+		Wait:        option.PoolWait,
 		IdleTimeout: option.PoolIdleTimeout,
 		Dial: func() (redis.Conn, error) {
 			masterAddr, err := sntnl.MasterAddr()
@@ -71,7 +71,11 @@ func (this *SentinelClient) Init(masterName string, addrs []string, option *Opti
 
 func (this *SentinelClient) Do(commandName string, args ...interface{}) (reply interface{}, err error) {
 	conn := this.masters.Get()
-	defer conn.Close()
+	defer func() {
+		if conn != nil {
+			conn.Close()
+		}
+	}()
 	if conn != nil {
 		return conn.Do(commandName, args...)
 	} else {

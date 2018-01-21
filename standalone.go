@@ -23,7 +23,7 @@ func (this *StandaloneClient) Init(dbName string, addr string, option *Option) {
 	this.cli = &redis.Pool{
 		MaxIdle:     option.PoolMaxIdle,
 		MaxActive:   option.PoolMaxActive,
-		Wait:        true,
+		Wait:        option.PoolWait,
 		IdleTimeout: option.PoolIdleTimeout,
 		Dial: func() (redis.Conn, error) {
 			c, err := redis.Dial("tcp", addr)
@@ -54,7 +54,11 @@ func (this *StandaloneClient) Init(dbName string, addr string, option *Option) {
 
 func (this *StandaloneClient) Do(commandName string, args ...interface{}) (reply interface{}, err error) {
 	conn := this.cli.Get()
-	defer conn.Close()
+	defer func() {
+		if conn != nil {
+			conn.Close()
+		}
+	}()
 	if conn != nil {
 		return conn.Do(commandName, args...)
 	} else {

@@ -17,6 +17,7 @@ type Option struct {
 	DBIndex         int
 	PoolMaxIdle     int
 	PoolMaxActive   int
+	PoolWait        bool
 	PoolIdleTimeout time.Duration
 }
 
@@ -27,6 +28,7 @@ func NewDefaultOption() *Option {
 		DBIndex:         0,
 		PoolMaxIdle:     10,
 		PoolMaxActive:   0,
+		PoolWait:        true,
 		PoolIdleTimeout: 240 * time.Second,
 	}
 }
