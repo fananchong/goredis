@@ -18,7 +18,7 @@ func (this *Client) Init(dbName string, addrs []string, option *Option) {
 	if len(addrs) <= 0 {
 		return
 	}
-	switch option.redisType {
+	switch option.Type {
 	case Unknow:
 		{
 			// TODO: 自识别

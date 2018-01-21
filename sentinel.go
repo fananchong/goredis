@@ -34,10 +34,10 @@ func (this *SentinelClient) Init(masterName string, addrs []string, option *Opti
 	}
 	this.masterName = masterName
 	this.masters = &redis.Pool{
-		MaxIdle:     option.poolMaxIdle,
-		MaxActive:   option.poolMaxActive,
+		MaxIdle:     option.PoolMaxIdle,
+		MaxActive:   option.PoolMaxActive,
 		Wait:        true,
-		IdleTimeout: option.poolIdleTimeout,
+		IdleTimeout: option.PoolIdleTimeout,
 		Dial: func() (redis.Conn, error) {
 			masterAddr, err := sntnl.MasterAddr()
 			if err != nil {
@@ -47,13 +47,13 @@ func (this *SentinelClient) Init(masterName string, addrs []string, option *Opti
 			if err != nil {
 				return nil, err
 			}
-			if option.password != "" {
-				if _, err := c.Do("AUTH", option.password); err != nil {
+			if option.Password != "" {
+				if _, err := c.Do("AUTH", option.Password); err != nil {
 					c.Close()
 					return nil, err
 				}
 			}
-			if _, err := c.Do("SELECT", option.dbIndex); err != nil {
+			if _, err := c.Do("SELECT", option.DBIndex); err != nil {
 				c.Close()
 				return nil, err
 			}

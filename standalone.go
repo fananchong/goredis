@@ -21,22 +21,22 @@ func NewStandaloneClient(dbName string, addr string, option *Option) *Standalone
 func (this *StandaloneClient) Init(dbName string, addr string, option *Option) {
 	this.dbName = dbName
 	this.cli = &redis.Pool{
-		MaxIdle:     option.poolMaxIdle,
-		MaxActive:   option.poolMaxActive,
+		MaxIdle:     option.PoolMaxIdle,
+		MaxActive:   option.PoolMaxActive,
 		Wait:        true,
-		IdleTimeout: option.poolIdleTimeout,
+		IdleTimeout: option.PoolIdleTimeout,
 		Dial: func() (redis.Conn, error) {
 			c, err := redis.Dial("tcp", addr)
 			if err != nil {
 				return nil, err
 			}
-			if option.password != "" {
-				if _, err := c.Do("AUTH", option.password); err != nil {
+			if option.Password != "" {
+				if _, err := c.Do("AUTH", option.Password); err != nil {
 					c.Close()
 					return nil, err
 				}
 			}
-			if _, err := c.Do("SELECT", option.dbIndex); err != nil {
+			if _, err := c.Do("SELECT", option.DBIndex); err != nil {
 				c.Close()
 				return nil, err
 			}
