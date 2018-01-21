@@ -33,7 +33,7 @@ func (this *Client) Init(dbName string, addrs []string, option *Option) {
 		}
 	case Cluster:
 		{
-
+			this.cli = NewClusterClient(dbName, addrs, option)
 		}
 	}
 }
