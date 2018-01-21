@@ -54,14 +54,10 @@ func (this *StandaloneClient) Init(dbName string, addr string, option *Option) {
 
 func (this *StandaloneClient) Do(commandName string, args ...interface{}) (reply interface{}, err error) {
 	conn := this.cli.Get()
-	defer func() {
-		if conn != nil {
-			conn.Close()
-		}
-	}()
 	if conn != nil {
+		defer conn.Close()
 		return conn.Do(commandName, args...)
 	} else {
-		return nil, errors.New("[redis] Can't get redis client!")
+		return nil, errors.New("[redis] Can't get redis conn!")
 	}
 }

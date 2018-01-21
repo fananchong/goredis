@@ -71,14 +71,10 @@ func (this *SentinelClient) Init(masterName string, addrs []string, option *Opti
 
 func (this *SentinelClient) Do(commandName string, args ...interface{}) (reply interface{}, err error) {
 	conn := this.masters.Get()
-	defer func() {
-		if conn != nil {
-			conn.Close()
-		}
-	}()
 	if conn != nil {
+		defer conn.Close()
 		return conn.Do(commandName, args...)
 	} else {
-		return nil, errors.New("[redis] Can't get master!")
+		return nil, errors.New("[redis] Can't get redis conn!")
 	}
 }

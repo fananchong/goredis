@@ -11,8 +11,7 @@ func testStandalone() {
 	option := goredis.NewDefaultOption()
 	option.Type = goredis.Standalone
 	addrs := []string{"192.168.1.4:16379"}
-	dbName := "test1"
-	db := goredis.NewClient(dbName, addrs, option)
+	db := goredis.NewClient("", addrs, option)
 	_, err1 := db.Do("SET", "a", "12345")
 	if err1 != nil {
 		fmt.Println(err1)

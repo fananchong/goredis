@@ -19,6 +19,10 @@
 			"ImportPath": "github.com/garyburd/redigo/redis",
 			"Comment": "v1.4.0",
 			"Rev": "d1ed5c67e5794de818ea85e6b522fda02623a484"
+		},
+		{
+			"ImportPath": "github.com/mna/redisc",
+			"Rev": "a2dd2591e7f2f97ade1e05bb26947a26d2040f14"
 		}
 	]
 }
