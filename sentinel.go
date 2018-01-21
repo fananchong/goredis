@@ -47,6 +47,16 @@ func (this *SentinelClient) Init(masterName string, addrs []string, option *Opti
 			if err != nil {
 				return nil, err
 			}
+			if option.password != "" {
+				if _, err := c.Do("AUTH", option.password); err != nil {
+					c.Close()
+					return nil, err
+				}
+			}
+			if _, err := c.Do("SELECT", option.dbIndex); err != nil {
+				c.Close()
+				return nil, err
+			}
 			return c, nil
 		},
 		TestOnBorrow: func(c redis.Conn, t time.Time) error {

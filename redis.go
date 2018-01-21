@@ -15,6 +15,9 @@ func NewClient(dbName string, addrs []string, option *Option) *Client {
 }
 
 func (this *Client) Init(dbName string, addrs []string, option *Option) {
+	if len(addrs) <= 0 {
+		return
+	}
 	switch option.redisType {
 	case Unknow:
 		{
@@ -22,7 +25,7 @@ func (this *Client) Init(dbName string, addrs []string, option *Option) {
 		}
 	case Standalone:
 		{
-
+			this.cli = NewStandaloneClient(dbName, addrs[0], option)
 		}
 	case Sentinel:
 		{

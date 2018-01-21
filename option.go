@@ -13,14 +13,20 @@ const (
 
 type Option struct {
 	redisType       RedisType
+	password        string
+	dbIndex         int
 	poolMaxIdle     int
 	poolMaxActive   int
 	poolIdleTimeout time.Duration
 }
 
-var DefaultOption = &Option{
-	redisType:       Unknow,
-	poolMaxIdle:     10,
-	poolMaxActive:   0,
-	poolIdleTimeout: 240 * time.Second,
+func NewDefaultOption() *Option {
+	return &Option{
+		redisType:       Unknow,
+		password:        "",
+		dbIndex:         0,
+		poolMaxIdle:     10,
+		poolMaxActive:   0,
+		poolIdleTimeout: 240 * time.Second,
+	}
 }
