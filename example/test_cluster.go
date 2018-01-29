@@ -11,7 +11,11 @@ func testCluster() {
 	option := goredis.NewDefaultOption()
 	option.Type = goredis.Cluster
 	addrs := []string{"192.168.1.4:39379", "192.168.1.4:39381", "192.168.1.4:39383"}
-	db := goredis.NewClient("", addrs, option)
+	db, err0 := goredis.NewClient("", addrs, option)
+	if err0 != nil {
+		fmt.Println(err0)
+		return
+	}
 	_, err1 := db.Do("SET", "c", "12345")
 	if err1 != nil {
 		fmt.Println(err1)

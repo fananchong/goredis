@@ -14,10 +14,10 @@ type ClusterClient struct {
 	option *Option
 }
 
-func NewClusterClient(dbName string, addrs []string, option *Option) *ClusterClient {
+func NewClusterClient(dbName string, addrs []string, option *Option) (*ClusterClient, error) {
 	cli := &ClusterClient{}
-	cli.Init(dbName, addrs, option)
-	return cli
+	err := cli.Init(dbName, addrs, option)
+	return cli, err
 }
 
 func (this *ClusterClient) Init(dbName string, addrs []string, option *Option) error {

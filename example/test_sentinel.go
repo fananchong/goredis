@@ -12,7 +12,11 @@ func testSentinel() {
 	option.Type = goredis.Sentinel
 	addrs := []string{"192.168.1.4:46379", "192.168.1.4:46380", "192.168.1.4:46381"}
 	dbName := "mysentinel"
-	db := goredis.NewClient(dbName, addrs, option)
+	db, err0 := goredis.NewClient(dbName, addrs, option)
+	if err0 != nil {
+		fmt.Println(err0)
+		return
+	}
 	_, err1 := db.Do("SET", "b", "12345")
 	if err1 != nil {
 		fmt.Println(err1)
