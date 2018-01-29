@@ -35,6 +35,7 @@ func (this *Client) Init(dbName string, addrs []string, option *Option) error {
 			if err != nil {
 				return err
 			}
+			defer conn.Close()
 			isSentinel, err = redis.String(conn.Do("INFO", "Sentinel"))
 			if err != nil {
 				return err
@@ -43,7 +44,6 @@ func (this *Client) Init(dbName string, addrs []string, option *Option) error {
 			if err != nil {
 				return err
 			}
-			conn.Close()
 
 			if isSentinel != "" {
 				this.cli = NewSentinelClient(dbName, addrs, option)
