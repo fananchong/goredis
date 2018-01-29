@@ -17,8 +17,4 @@ https://github.com/mna/redisc
 
 ### TODO:
 
-  - Docker Swarm 部署 Redis Cluster
-  - 阅读redisc代码，确定redisc.Cluster::Refresh函数用法
-  - 阅读redisc代码，确定连接失效后处理
-  - 编写测试Cluster用例
   - 自识别3种redis部署方式，并自动创建对应的访问实例

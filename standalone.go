@@ -43,9 +43,6 @@ func (this *StandaloneClient) Init(dbName string, addr string, option *Option) {
 			return c, nil
 		},
 		TestOnBorrow: func(c redis.Conn, t time.Time) error {
-			if time.Since(t) < time.Minute {
-				return nil
-			}
 			_, err := c.Do("PING")
 			return err
 		},

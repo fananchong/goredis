@@ -58,9 +58,6 @@ func (this *ClusterClient) createPool(addr string, options ...redis.DialOption) 
 			return c, nil
 		},
 		TestOnBorrow: func(c redis.Conn, t time.Time) error {
-			if time.Since(t) < time.Minute {
-				return nil
-			}
 			_, err := c.Do("PING")
 			return err
 		},
