@@ -10,7 +10,8 @@ import (
 func testStandalone() {
 	option := goredis.NewDefaultOption()
 	option.Type = goredis.Standalone
-	addrs := []string{"192.168.1.4:16379"}
+	option.Password = "123456"
+	addrs := []string{"172.26.144.21:6379"}
 	db, err0 := goredis.NewClient("", addrs, option)
 	if err0 != nil {
 		fmt.Println(err0)
