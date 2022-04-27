@@ -1,7 +1,6 @@
 package goredis
 
 import (
-	"errors"
 	"time"
 
 	"github.com/gomodule/redigo/redis"
@@ -51,10 +50,10 @@ func (this *StandaloneClient) Init(dbName string, addr string, option *Option) {
 
 func (this *StandaloneClient) Do(commandName string, args ...interface{}) (reply interface{}, err error) {
 	conn := this.cli.Get()
-	if conn != nil {
+	if conn.Err() == nil {
 		defer conn.Close()
 		return conn.Do(commandName, args...)
 	} else {
-		return nil, errors.New("[redis] Can't get redis conn!")
+		return nil, conn.Err()
 	}
 }
